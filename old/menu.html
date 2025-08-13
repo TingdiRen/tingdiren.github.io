@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="css/jemdoc.css" type="text/css" />
+<link rel="stylesheet" href="css/jacob.css" type="text/css" />
+<title>jemdoc &ndash; add a menu</title>
+</head>
+<body>
+<!-- MathJax -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-2725246-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+ var ga = document.createElement('script'); ga.type =
+ 'text/javascript'; ga.async = true;
+ ga.src = ('https:' == document.location.protocol ? 'https://ssl'
+   : 'http://www') + '.google-analytics.com/ga.js';
+ var s = document.getElementsByTagName('script')[0];
+ s.parentNode.insertBefore(ga, s);
+ })();
+</script>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<img class="menu" src="imgs/logo.png" width="120px" height="120px" align="center"><br>
+<div class="menu-category">Tingdi Ren</div>
+<div class="menu-item"><a href="index.html">Home</a></div>
+<div class="menu-item"><a href="biography.html">Biography</a></div>
+<div class="menu-item"><a href="news.html">News</a></div>
+<div class="menu-category">Academics</div>
+<div class="menu-item"><a href="publication.html">Publications</a></div>
+<div class="menu-item"><a href="research.html">Researches</a></div>
+<div class="menu-category">Study</div>
+<div class="menu-item"><a href="http://blog.adilifer.com/">Blog</a></div>
+<div class="menu-category">Visitor Stats</div>
+<br><script type="text/javascript" src="//codice.shinystat.com/cgi-bin/getcod.cgi?USER=SS-44156947-9fc0a"></script>
+<noscript><a href="https://www.shinystat.com/it/" target="_top"><img src="//www.shinystat.com/cgi-bin/shinystat.cgi?USER=SS-44156947-9fc0a" alt="Statistiche web" style="border:0px" /></a>
+</noscript>
+</td>
+<td id="layout-content">
+<div id="toptitle">
+<h1>jemdoc &ndash; add a menu</h1>
+</div>
+<p>jemdoc provides an easy way to add a &lsquo;menu&rsquo; like the one you see at the left of
+this page. You should create a file called <tt>MENU</tt>, for example, in the current
+directory. This website's <tt>MENU</tt> looks something like this:
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+jemdoc
+    home                [index.html]
+    download            [download.html]
+    revision history    [revision.html]
+    contact             [contact.html]
+
+user's guide
+    cheat sheet         [cheatsheet.html]
+    using               [using.html]
+
+goodies
+    add a menu          [menu.html]
+    other stuff         [stuff.html]
+</pre></div></div>
+<p>To use the menu, start the first line of <i>each</i> source file with a special
+comment like this one:
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+# jemdoc: menu{MENU}{index.html}
+</pre></div></div>
+<p>(Replace <tt>index.html</tt> with the name of the relevant html page.) This will add a
+menu from the file called <tt>MENU</tt>, and underline and darken the menu entry
+corresponding to <tt>index.html</tt>.
+</p>
+<h2>Relative paths</h2>
+<p>Optionally, include a <tt>prefix</tt> which instructs jemdoc where the root of the menu
+is located relative to a particular page.
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+# jemdoc: menu{MENU}{pageinsubdir.html}{prefix}
+</pre></div></div>
+<h2>A note on menu widths</h2>
+<p>jemdoc will create menu entries that do not wrap. If you have a particularly
+long title, or menu item, insert manual linebreaks using <tt>\</tt><tt>n</tt> in your
+MENU file. Multi-line menu items will (by default) have their second and
+subsequent lines slightly indented.
+</p>
+<div id="footer">
+<div id="footer-text">
+Page generated 2023-02-22 12:37:22 中国标准时间, by <a href="https://github.com/wsshin/jemdoc_mathjax" target="blank">jemdoc+MathJax</a>.
+</div>
+</div>
+</td>
+</tr>
+</table>
+</body>
+</html>

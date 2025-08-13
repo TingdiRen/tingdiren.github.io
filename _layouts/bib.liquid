@@ -265,16 +265,19 @@
         {% assign entry_has_dimensions_badge = true %}
       {% endif %}
 
-      {% assign entry_has_google_scholar_badge = false %}
-      {% if entry.google_scholar_id %}
-        {% assign entry_has_google_scholar_badge = true %}
-      {% endif %}
+      {% comment %} Google Scholar badge disabled {% endcomment %}
 
       {% assign entry_has_inspirehep_badge = false %}
       {% if entry.inspirehep_id %}
         {% assign entry_has_inspirehep_badge = true %}
       {% endif %}
-      {% if entry_has_altmetric_badge or entry_has_dimensions_badge or entry_has_google_scholar_badge or entry_has_inspirehep_badge %}
+      
+      {% assign entry_has_github_badge = false %}
+      {% if entry.github %}
+        {% assign entry_has_github_badge = true %}
+      {% endif %}
+      
+      {% if entry_has_altmetric_badge or entry_has_dimensions_badge or entry_has_inspirehep_badge or entry_has_github_badge %}
         <div class="badges">
           {% if site.enable_publication_badges.altmetric and entry_has_altmetric_badge %}
             <span
@@ -311,18 +314,7 @@
               style="margin-bottom: 3px;"
             ></span>
           {% endif %}
-          {% if site.enable_publication_badges.google_scholar and entry_has_google_scholar_badge %}
-            <a
-              href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user={{ site.data.socials.scholar_userid }}&citation_for_view={{ site.data.socials.scholar_userid }}:{{ entry.google_scholar_id }}"
-              aria-label="Google Scholar link"
-              role="button"
-            >
-              <img
-                src="https://img.shields.io/badge/scholar-{% google_scholar_citations site.data.socials.scholar_userid entry.google_scholar_id %}-4285F4?logo=googlescholar&labelColor=beige"
-                alt="{% google_scholar_citations site.data.socials.scholar_userid entry.google_scholar_id %} Google Scholar citations"
-              >
-            </a>
-          {% endif %}
+          {% comment %} Google Scholar badge disabled {% endcomment %}
           {% if site.enable_publication_badges.inspirehep and entry_has_inspirehep_badge %}
             <a
               href="https://inspirehep.net/literature/{{ entry.inspirehep_id }}"
@@ -332,6 +324,21 @@
               <img
                 src="https://img.shields.io/badge/inspire-{% inspirehep_citations entry.inspirehep_id %}-001628?logo=inspire&logoColor=001628&labelColor=beige"
                 alt="{% inspirehep_citations entry.inspirehep_id %} InspireHEP citations"
+              >
+            </a>
+          {% endif %}
+          
+          {% if entry_has_github_badge %}
+            <a
+              href="{{ entry.github }}"
+              aria-label="GitHub repository link"
+              role="button"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="https://img.shields.io/github/stars/{{ entry.github | replace: 'https://github.com/', '' }}?style=social&label=Star"
+                alt="GitHub Stars"
               >
             </a>
           {% endif %}
@@ -357,7 +364,7 @@
       <!-- Hidden bibtex block -->
       <div class="bibtex hidden">
         {% highlight bibtex %}
-        {{- entry.bibtex | hideCustomBibtex -}}
+{{- entry.bibtex | hideCustomBibtex -}}
         {% endhighlight %}
       </div>
     {% endif %}

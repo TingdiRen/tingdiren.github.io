@@ -1,14 +1,11 @@
 github_users:
-  - torvalds
-  - alshedivat
+  - tingdiren
 
 repo_description_lines_max: 2
 
 github_repos:
-  - alshedivat/al-folio
-  - jekyll/jekyll
-  - twbs/bootstrap
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - mathjax/MathJax
-  - jpswalsh/academicons
+  - tingdiren/URSCT-SESR
+  - tingdiren/LRU_pytorch
+  - tingdiren/China_Option_SVIX
+  - tingdiren/FIAHedging
+  - tingdiren/Word2Latex
