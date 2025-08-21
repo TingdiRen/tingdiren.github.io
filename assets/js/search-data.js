@@ -30,26 +30,15 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-a-post-with-images",
+        },{id: "post-from-fairness-to-functions-schur-concavity-and-the-principle-of-transfers",
         
-          title: "a post with images",
+          title: "From Fairness to Functions: Schur-Concavity and the Principle of Transfers",
         
-        description: "test",
+        description: "An introduction to Schur-concavity, bridging the gap between the intuitive Pigou-Dalton principle of transfers and the formal mathematics of inequality measurement in welfare economics.",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2023/ruc/";
-          
-        },
-      },{id: "post-a-post-with-formatting-and-links",
-        
-          title: "a post with formatting and links",
-        
-        description: "march &amp; april, looking forward to summer",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/2015/formatting-and-links/";
+            window.location.href = "/blog/2025/Schur/";
           
         },
       },{id: "books-the-godfather",
