@@ -44,4 +44,4 @@ jobs:
         with:
           fail: true
           # only check local links
-          args: --offline --exclude-path '(^|/)_site/old/' --remap '_site(/?.*)/assets/(.*) _site/assets/$2' --verbose --no-progress '_site/**/*.html'
+          args: --offline --root-dir '${{ github.workspace }}/_site' --exclude-path '(^|/)_site/old/' --remap '_site(/?.*)/assets/(.*) _site/assets/$2' --verbose --no-progress '_site/**/*.html'
