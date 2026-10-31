@@ -17,18 +17,41 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Setup Node.js ⚙️
         uses: actions/setup-node@v4
       - name: Install Prettier 💾
         run: npm install --save-dev --save-exact prettier @shopify/prettier-plugin-liquid
       - name: Prettier Check 🔎
         id: prettier
-        run: npx prettier . --check
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            base="$BASE_SHA"
+          else
+            base="$BEFORE_SHA"
+          fi
+          if [[ -z "$base" || "$base" =~ ^0+$ ]] || ! git cat-file -e "$base^{commit}" 2>/dev/null; then
+            base="$(git rev-parse HEAD^)"
+          fi
+          git diff --name-only -z --diff-filter=ACMRT "$base" "$GITHUB_SHA" -- > "$RUNNER_TEMP/prettier-files"
+          if [[ -s "$RUNNER_TEMP/prettier-files" ]]; then
+            xargs -0 -r npx prettier --check --ignore-unknown < "$RUNNER_TEMP/prettier-files"
+          else
+            echo "No changed files to format-check."
+          fi
       - name: Create diff 📝
         # https://docs.github.com/en/actions/learn-github-actions/expressions#failure
         if: ${{ failure() }}
         run: |
-          npx prettier . --write
+          if [[ -s "$RUNNER_TEMP/prettier-files" ]]; then
+            xargs -0 -r npx prettier --write --ignore-unknown < "$RUNNER_TEMP/prettier-files"
+          fi
           git diff -- . ':(exclude)package-lock.json' ':(exclude)package.json' > diff.txt
           npm install -g diff2html-cli
           diff2html -i file -s side -F diff.html -- diff.txt
