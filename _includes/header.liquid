@@ -2,8 +2,8 @@
   <!-- Nav Bar -->
   <nav id="navbar" class="navbar navbar-light navbar-expand-sm {% if site.navbar_fixed %}fixed-top{% else %}sticky-top{% endif %}" role="navigation">
     <div class="container">
-      {% if page.permalink != '/' %}
-        <a class="navbar-brand title font-weight-lighter" href="{{ site.baseurl }}/">
+      {% if page.permalink != '/' and page.permalink != '/zh/' %}
+        <a class="navbar-brand title font-weight-lighter" href="{% if page.lang == 'zh' %}{{ '/zh/' | relative_url }}{% else %}{{ '/' | relative_url }}{% endif %}">
           {% if site.title == 'blank' %}
             {% if site.first_name %}
               <span class="font-weight-bold">
@@ -47,10 +47,10 @@
           {% endfor %}
 
           <!-- About -->
-          <li class="nav-item {% if page.permalink == '/' %}active{% endif %}">
-            <a class="nav-link" href="{{ '/' | relative_url }}">
-              {{- about_title }}
-              {% if page.permalink == '/' %}
+          <li class="nav-item {% if page.permalink == '/' or page.permalink == '/zh/' %}active{% endif %}">
+            <a class="nav-link" href="{% if page.lang == 'zh' %}{{ '/zh/' | relative_url }}{% else %}{{ '/' | relative_url }}{% endif %}">
+              {% if page.lang == 'zh' %}关于{% else %}{{- about_title | capitalize }}{% endif %}
+              {% if page.permalink == '/' or page.permalink == '/zh/' %}
                 <span class="sr-only">(current)</span>
               {% endif %}
             </a>
@@ -107,8 +107,16 @@
                   {%- else -%}
                     {%- assign url = p.url -%}
                   {%- endif %}
+                  {% assign nav_label = p.title | capitalize %}
+                  {% if page.lang == 'zh' %}
+                    {% case p.permalink %}
+                      {% when '/blog/' %}{% assign nav_label = '博客' %}
+                      {% when '/publications/' %}{% assign nav_label = '论文' %}{% assign url = '/zh/publications/' %}
+                      {% when '/repositories/' %}{% assign nav_label = '代码仓库' %}
+                    {% endcase %}
+                  {% endif %}
                   <a class="nav-link" href="{{ url | relative_url }}">
-                    {{- p.title }}
+                    {{- nav_label }}
                     {% if page.url contains p.url %}
                       <span class="sr-only">(current)</span>
                     {% endif %}
@@ -136,6 +144,21 @@
             </li>
           {% endif %}
         </ul>
+      </div>
+
+      <!-- Language switch remains visible when the mobile navigation is collapsed. -->
+      {% assign english_url = page.en_url | default: page.url | default: '/' %}
+      {% assign chinese_url = page.zh_url | default: '/zh/' %}
+      <div class="site-language-switch" role="group" aria-label="Language / 语言">
+        <a class="lang-option{% unless page.lang == 'zh' %} active{% endunless %}"
+           href="{{ english_url | relative_url }}" lang="en"
+           {% unless page.lang == 'zh' %}aria-current="page"{% endunless %}
+           aria-label="English version">EN</a>
+        <span class="lang-divider" aria-hidden="true">/</span>
+        <a class="lang-option{% if page.lang == 'zh' %} active{% endif %}"
+           href="{{ chinese_url | relative_url }}" lang="zh-CN"
+           {% if page.lang == 'zh' %}aria-current="page"{% endif %}
+           aria-label="中文版">中文</a>
       </div>
     </div>
   </nav>

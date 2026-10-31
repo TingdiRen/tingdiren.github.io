@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ site.lang }}">
+<html lang="{% if page.lang == 'zh' %}zh-CN{% else %}en{% endif %}">
   <!-- Head -->
   <head>
     {% if page.redirect %}
@@ -13,6 +13,11 @@
       <meta http-equiv="refresh" content="3; url={{ redirect }}">
     {% endif %}
     {% include head.liquid %}
+    <link rel="stylesheet" href="{{ '/assets/css/language-switch.css' | relative_url }}">
+    {% if page.en_url and page.zh_url %}
+      <link rel="alternate" hreflang="en" href="{{ page.en_url | absolute_url }}">
+      <link rel="alternate" hreflang="zh-CN" href="{{ page.zh_url | absolute_url }}">
+    {% endif %}
   </head>
 
   <!-- Body -->

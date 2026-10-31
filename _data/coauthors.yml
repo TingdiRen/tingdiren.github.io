@@ -1,3 +1,15 @@
+"chi":
+  - firstname: ["Yichun"]
+    url: https://scholar.google.com/citations?user=EX1oHyEAAAAJ
+
+"jiang":
+  - firstname: ["Wenjun"]
+    url: https://profiles.ucalgary.ca/wenjun-jiang
+
+"zhang":
+  - firstname: ["Jinggong"]
+    url: https://scholar.google.com/citations?user=j7ZUEgEAAAAJ
+
 "adams":
   - firstname: ["Edwin", "E.", "E. P.", "Edwin Plimpton"]
     url: https://en.wikipedia.org/wiki/Edwin_Plimpton_Adams

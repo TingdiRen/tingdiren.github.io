@@ -16,10 +16,14 @@
         {% endif %}
         {% for item in news limit: news_limit %}
           <tr>
-            <th scope="row" style="width: 20%">{{ item.date | date: '%b %d, %Y' }}</th>
+            <th scope="row" style="width: 20%">{{ item.date | date: '%b %Y' }}</th>
             <td>
               {% if item.inline %}
-                {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}
+                {% if page.lang == 'zh' and item.zh %}
+                  {{ item.zh | markdownify | remove: '<p>' | remove: '</p>' | emojify }}
+                {% else %}
+                  {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}
+                {% endif %}
               {% else %}
                 <a class="news-title" href="{{ item.url | relative_url }}">{{ item.title }}</a>
               {% endif %}
@@ -29,6 +33,6 @@
       </table>
     </div>
   {% else %}
-    <p>No news so far...</p>
+    {% if page.lang == 'zh' %}<p>暂无学术动态。</p>{% else %}<p>No news so far...</p>{% endif %}
   {% endif %}
 </div>
