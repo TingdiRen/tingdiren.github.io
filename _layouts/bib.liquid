@@ -32,7 +32,7 @@
           {% assign entry_path = entry.preview | prepend: '/assets/img/publication_preview/' %}
           {%
             include figure.liquid
-            loading="eager"
+            loading="lazy"
             path=entry_path
             sizes = "200px"
             class="preview z-depth-1 rounded"
@@ -271,12 +271,12 @@
       {% if entry.inspirehep_id %}
         {% assign entry_has_inspirehep_badge = true %}
       {% endif %}
-      
+
       {% assign entry_has_github_badge = false %}
       {% if entry.github %}
         {% assign entry_has_github_badge = true %}
       {% endif %}
-      
+
       {% if entry_has_altmetric_badge or entry_has_dimensions_badge or entry_has_inspirehep_badge or entry_has_github_badge %}
         <div class="badges">
           {% if site.enable_publication_badges.altmetric and entry_has_altmetric_badge %}
@@ -327,7 +327,7 @@
               >
             </a>
           {% endif %}
-          
+
           {% if entry_has_github_badge %}
             <a
               href="{{ entry.github }}"
@@ -364,8 +364,8 @@
       <!-- Hidden bibtex block -->
       <div class="bibtex hidden">
         {% highlight bibtex %}
-{{- entry.bibtex | hideCustomBibtex -}}
-        {% endhighlight %}
+        {{- entry.bibtex | hideCustomBibtex -}}
+      {% endhighlight %}
       </div>
     {% endif %}
 

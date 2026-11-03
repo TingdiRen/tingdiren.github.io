@@ -2,19 +2,15 @@
 # Site settings
 # -----------------------------------------------------------------------------
 
-title: TingdiRen # the website title (if blank, full name will be used instead)
+title: Tingdi Ren # the website title (if blank, full name will be used instead)
 first_name: Tingdi
 middle_name: 
 last_name: Ren
-contact_note: >
-  Welcome to my academic website.
+contact_note:
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  Tingdi Ren's academic website. A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-footer_text: >
-  Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
-  Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
-  Photos from <a href="https://unsplash.com" target="_blank">Unsplash</a>.
-keywords: jekyll, jekyll-theme, academic-website, portfolio-website # add your own keywords or leave empty
+  Tingdi Ren is a Ph.D. candidate in Economics (Insurance) at the Central University of Finance and Economics, working on mechanism design, risk theory, and deep learning for constrained economic optimization.
+footer_text:
+keywords: Tingdi Ren, insurance, mechanism design, contract design, risk theory, risk sharing, deep learning, CUFE # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: cufe_logo.png # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
@@ -47,8 +43,8 @@ repo_trophies:
 # -----------------------------------------------------------------------------
 
 navbar_fixed: true
-footer_fixed: true
-search_enabled: true
+footer_fixed: false
+search_enabled: false
 socials_in_search: true
 posts_in_search: true
 bib_search: true
@@ -63,9 +59,9 @@ max_width: 930px
 # -----------------------------------------------------------------------------
 # Display links to the page with a preview object on social media.
 # see https://schema.org/docs/faq.html for more information
-serve_og_meta: false # Include Open Graph meta tags in the HTML head
-serve_schema_org: false # Include Schema.org in the HTML head
-og_image: # The site-wide (default for all links) Open Graph preview image
+serve_og_meta: true # Include Open Graph meta tags in the HTML head
+serve_schema_org: true # Include Schema.org in the HTML head
+og_image: https://tingdiren.github.io/assets/img/og_image.jpg # The site-wide (default for all links) Open Graph preview image
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
@@ -86,7 +82,7 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name: TingdiRen's Blog # blog_name will be displayed in your blog page
+blog_name: Tingdi Ren's Blog # blog_name will be displayed in your blog page
 blog_description: Tingdi Ren's academic blog and research updates
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
@@ -115,19 +111,13 @@ giscus:
   lang: en
 
 # Disqus comments (DEPRECATED)
-disqus_shortname: al-folio # put your disqus shortname
+disqus_shortname: # put your disqus shortname
 # https://help.disqus.com/en/articles/1717111-what-s-a-shortname
 
 # External sources.
 # If you have blog posts published on medium.com or other external sources,
 # you can display them in your blog by adding a link to the RSS feed.
-external_sources:
-  - name: medium.com
-    rss_url: https://medium.com/@al-folio/feed
-  - name: Google Blog
-    posts:
-      - url: https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/
-        published_date: 2024-05-14
+external_sources: []
 
 # -----------------------------------------------------------------------------
 # Newsletter
@@ -143,13 +133,9 @@ newsletter:
 # -----------------------------------------------------------------------------
 
 collections:
-  books:
-    output: true
   news:
     defaults:
       layout: post
-    output: true
-  projects:
     output: true
 
 # -----------------------------------------------------------------------------
@@ -185,9 +171,9 @@ exclude:
   - INSTALL.md
   - LICENSE
   - lighthouse_results/
+  - old/
   - package.json
   - package-lock.json
-  - _pages/about_einstein.md
   - purgecss.config.js
   - README.md
   - readme_preview/
@@ -253,8 +239,6 @@ jekyll-archives:
       year: "/blog/:year/"
       tags: "/blog/:type/:name/"
       categories: "/blog/:type/:name/"
-  books:
-    enabled: [year, tags, categories] # enables year, tag and category archives (remove if you need to disable one of them).
 
 display_tags: ["Schur-concavity", "Majorization", "Pigou-dalton-principle"] # these tags will be displayed on the front page of your blog
 display_categories: ["Mathematical-Economics"] # these categories will be displayed on the front page of your blog

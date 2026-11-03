@@ -2,55 +2,68 @@
 layout: default
 ---
 <div class="post">
-  <header class="post-header">
-    <h1 class="post-title">
-      {% if site.title == 'blank' %}
-        <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
-        {{ site.last_name }}
-      {% else %}
-        {{ site.title }}
-      {% endif %}
-    </h1>
-    <p class="desc">{{ page.subtitle }}</p>
-  </header>
-
-  <article>
-    {% if page.profile %}
-      <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
-        {% if page.profile.image %}
-          {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-          {% if page.profile.image_circular %}
-            {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
-          {% else %}
-            {% assign profile_image_class = 'img-fluid z-depth-1 rounded' %}
-          {% endif %}
-          {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
-      30vw, 95vw{% endcapture %}
-          {%
-            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
-            cache_bust=true
-          %}
+  <header class="post-header{% if page.profile %} about-header{% if page.profile.align == 'left' %} about-header--photo-left{% endif %}{% endif %}">
+    <div class="about-heading">
+      <h1 class="post-title">
+        {% if site.title == 'blank' %}
+          <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
+          {{ site.last_name }}
+        {% else %}
+          {{ site.title }}
         {% endif %}
+      </h1>
+      <p class="desc">{{ page.subtitle }}</p>
+      {% if page.intro %}
+        <div class="about-intro">{{ page.intro | markdownify }}</div>
+      {% endif %}
+    </div>
+    {% if page.profile.image %}
+      <div class="profile">
+        {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+        {% if page.profile.image_circular %}
+          {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
+        {% else %}
+          {% assign profile_image_class = 'img-fluid z-depth-1 rounded' %}
+        {% endif %}
+        {% capture profile_image_alt %}{{ site.first_name }} {{ site.last_name }}{% endcapture %}
+        {%
+          include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes="(min-width: 576px) 240px, 95vw" alt=profile_image_alt
+          cache_bust=true
+        %}
         {% if page.profile.more_info %}
           <div class="more-info">{{ page.profile.more_info }}</div>
         {% endif %}
       </div>
     {% endif %}
+  </header>
 
+  <article>
     <div class="clearfix">{{ content }}</div>
 
     <!-- News -->
     {% if page.announcements and page.announcements.enabled %}
       <h2>
-        <a href="{% if page.lang == 'zh' %}{{ '/zh/news/' | relative_url }}{% else %}{{ '/news/' | relative_url }}{% endif %}" style="color: inherit">{% if page.lang == 'zh' %}学术动态{% else %}News{% endif %}</a>
+        <a href="{% if page.lang == 'zh' %}{{ '/zh/news/' | relative_url }}{% else %}{{ '/news/' | relative_url }}{% endif %}" style="color: inherit">
+          {%- if page.lang == 'zh' %}学术动态{% else %}News{% endif -%}
+        </a>
       </h2>
       {% include news.liquid limit=true %}
+      {% assign news_size = site.news | size %}
+      {% if page.announcements.limit and news_size > page.announcements.limit %}
+        <p class="news-more">
+          <a href="{% if page.lang == 'zh' %}{{ '/zh/news/' | relative_url }}{% else %}{{ '/news/' | relative_url }}{% endif %}">
+            {%- if page.lang == 'zh' %}全部动态{% else %}All news{% endif %} →</a
+          >
+        </p>
+      {% endif %}
     {% endif %}
 
     <!-- Latest posts -->
     {% if page.latest_posts and page.latest_posts.enabled %}
       <h2>
-        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">{% if page.lang == 'zh' %}最新文章（英文）{% else %}Latest Posts{% endif %}</a>
+        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">
+          {%- if page.lang == 'zh' %}最新文章（英文）{% else %}Latest Posts{% endif -%}
+        </a>
       </h2>
       {% include latest_posts.liquid %}
     {% endif %}
@@ -58,7 +71,12 @@ layout: default
     <!-- Selected papers -->
     {% if page.selected_papers %}
       <h2>
-        <a href="{% if page.lang == 'zh' %}{{ '/zh/publications/' | relative_url }}{% else %}{{ '/publications/' | relative_url }}{% endif %}" style="color: inherit">{% if page.lang == 'zh' %}代表性发表论文{% else %}Selected Publications{% endif %}</a>
+        <a
+          href="{% if page.lang == 'zh' %}{{ '/zh/publications/' | relative_url }}{% else %}{{ '/publications/' | relative_url }}{% endif %}"
+          style="color: inherit"
+        >
+          {%- if page.lang == 'zh' %}代表性发表论文{% else %}Selected Publications{% endif -%}
+        </a>
       </h2>
       {% include selected_papers.liquid %}
     {% endif %}
@@ -68,7 +86,9 @@ layout: default
       <div class="social">
         <div class="contact-icons">{% include social.liquid %}</div>
 
-        <div class="contact-note">{{ site.contact_note }}</div>
+        {% if site.contact_note %}
+          <div class="contact-note">{{ site.contact_note }}</div>
+        {% endif %}
       </div>
     {% endif %}
 

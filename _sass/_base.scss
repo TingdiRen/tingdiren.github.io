@@ -4,6 +4,22 @@
 
 // Typography
 
+body {
+  font-weight: 400;
+}
+
+:lang(zh) {
+  body {
+    font-family: Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC", sans-serif;
+    line-height: 1.75;
+  }
+
+  strong,
+  b {
+    font-weight: 700;
+  }
+}
+
 p,
 h1,
 h2,
@@ -46,6 +62,118 @@ table.table a {
 
   &:hover:after :not(.nav-item.dropdown) {
     width: 100%;
+  }
+
+  em,
+  span,
+  strong {
+    color: inherit;
+  }
+}
+
+// Inline links in running text are underlined so they read as links without relying on colour.
+// Bold links (paper titles, coauthors) already stand out by weight and stay plain.
+
+article p a:not(:has(> strong), strong > a),
+article li a:not(:has(> strong), strong > a),
+.about-intro a,
+.news td a,
+.news-body a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+
+  &:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+// News: a vertical timeline, one dot per item, the latest dot filled.
+
+.news-scroll {
+  overflow-y: auto;
+}
+
+.news-timeline {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+.news-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0 1rem;
+  padding: 0 0 1.25rem 1.75rem;
+
+  // Connector to the next dot.
+  &::before {
+    content: "";
+    position: absolute;
+    left: calc(0.3125rem - 0.5px);
+    top: 0.75rem;
+    bottom: -0.75rem;
+    width: 1px;
+    background: var(--global-divider-color);
+  }
+
+  &:last-child::before {
+    display: none;
+  }
+
+  // Dot, centred on the first line of text.
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: calc(0.75rem - 0.3125rem);
+    width: 0.625rem;
+    height: 0.625rem;
+    border: 2px solid var(--global-theme-color);
+    border-radius: 50%;
+    background: var(--global-bg-color);
+  }
+
+  &:first-child::after {
+    background: var(--global-theme-color);
+  }
+
+  .news-date {
+    color: var(--global-text-color-light);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .news-item {
+    grid-template-columns: minmax(0, 1fr);
+    padding-left: 1.5rem;
+  }
+}
+
+// Latest posts keep the table layout.
+
+.news td {
+  font-weight: inherit;
+}
+
+.news th {
+  width: 6.5rem;
+  white-space: nowrap;
+}
+
+.news-more {
+  margin-top: -0.5rem;
+  text-align: right;
+  font-size: 0.875rem;
+
+  a {
+    color: var(--global-text-color-light);
+    text-decoration: none;
   }
 }
 
@@ -227,6 +355,60 @@ ul.task-list input[type="checkbox"] {
   }
 }
 
+// About page header: name and introduction beside the photo, contact details under it,
+// so the content below runs full width.
+
+.about-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-bottom: 1.5rem;
+
+  .about-heading {
+    flex: 1 1 18rem;
+    min-width: 0;
+
+    .desc {
+      margin-bottom: 1rem;
+    }
+
+    .about-intro p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .profile .more-info {
+    margin-top: 0.75rem;
+    font-family: inherit;
+    font-size: 0.9375rem;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .profile {
+    flex: 0 0 auto;
+    width: 100%;
+
+    figure {
+      margin: 0;
+    }
+  }
+}
+
+.about-header--photo-left {
+  flex-direction: row-reverse;
+}
+
+@media (min-width: 576px) {
+  .about-header .profile {
+    width: 15rem;
+  }
+}
+
 .post-description {
   margin-bottom: 2rem;
   font-size: 0.875rem;
@@ -247,7 +429,7 @@ ul.task-list input[type="checkbox"] {
   box-shadow: none;
   border-bottom: 1px solid var(--global-divider-color);
   background-color: var(--global-bg-color);
-  opacity: 0.95;
+  font-weight: inherit;
 }
 
 .navbar .dropdown-menu {
@@ -385,6 +567,8 @@ ul.task-list input[type="checkbox"] {
 
 #light-toggle,
 #search-toggle {
+  min-width: 2rem;
+  min-height: 2rem;
   padding: 0;
   border: 0;
   background-color: inherit;
@@ -401,23 +585,24 @@ ul.task-list input[type="checkbox"] {
   text-align: center;
 
   .contact-icons {
-    font-size: 4rem;
+    font-size: 1.75rem;
 
     a {
+      display: inline-block;
+      padding: 0.25rem 0.4rem;
+
       img {
-        width: 3.2rem;
-        height: 3.2rem;
-        margin-bottom: 1rem;
+        width: 1.75rem;
+        height: 1.75rem;
       }
 
       svg {
-        width: 3.5rem;
-        height: 4rem;
-        margin-bottom: 0.5rem;
+        width: 1.75rem;
+        height: 1.75rem;
 
         image {
-          width: 3.5rem;
-          height: 3.5rem;
+          width: 1.75rem;
+          height: 1.75rem;
         }
       }
 
@@ -720,7 +905,7 @@ footer.sticky-bottom {
   }
 
   h2.bibliography {
-    color: var(--global-divider-color);
+    color: var(--global-text-color-light);
     border-top: 1px solid var(--global-divider-color);
     padding-top: 1rem;
     margin-top: 2rem;

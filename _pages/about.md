@@ -6,6 +6,9 @@ lang: en
 en_url: /
 zh_url: /zh/
 subtitle: <a href='https://ins.cufe.edu.cn/'>School of Insurance</a>, <a href='http://en.cufe.edu.cn/'>Central University of Finance and Economics</a>
+intro: >-
+  I am a Ph.D. candidate in Economics (Insurance) at the Central University of Finance and Economics (CUFE),
+  working with [Prof. Yichun Chi](https://scholar.google.com/citations?user=EX1oHyEAAAAJ).
 
 profile:
   align: right
@@ -19,21 +22,19 @@ selected_papers: true
 social: true
 announcements:
   enabled: true
-  scrollable: true
-  limit: 9
+  scrollable: false
+  limit: 5
 latest_posts:
   enabled: true
   scrollable: true
   limit: 2
 ---
 
-I am a Ph.D. candidate in Insurance at the Central University of Finance and Economics (CUFE), working with [Prof. Yichun Chi](https://scholar.google.com/citations?user=EX1oHyEAAAAJ).
-
 ## Research Interests
 
-- **Mechanism Design**
-- **Risk Theory**
-- **Deep Learning**
+- **Mechanism Design**: Incentives, information economics, and contract design.
+- **Risk Theory**: Risk preferences, insurance, and risk sharing.
+- **Deep Learning**: Neural-network methods for constrained economic optimization.
 
 ## Working Papers
 
@@ -47,5 +48,5 @@ I am a Ph.D. candidate in Insurance at the Central University of Finance and Eco
 
 ## Education
 
-- **PhD in Economics** (2023 - Present): School of Insurance, Central University of Finance and Economics, Beijing, China
+- **Ph.D. in Economics (Insurance)** (2023 - Present): School of Insurance, Central University of Finance and Economics, Beijing, China
 - **Bachelor of Economics** (2019 - 2023): School of Mathematics and Statistics, Ningbo University, Ningbo, China
